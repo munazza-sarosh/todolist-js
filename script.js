@@ -52,23 +52,52 @@ storage_.forEach(store => {
 });
 
 // text
-storage_ = JSON.parse(localStorage.getItem("todolist")) || [];
+// storage_ = JSON.parse(localStorage.getItem("todolist")) || [];
 
 let task = document.getElementById("text");
 task.addEventListener("keydown", todo_task)
 
 function todo_task(event) {
-    if (event.keyCode === 13) {
+    if (event.key === "Enter" && task.value.trim() != "") {
         let display = task.value
+        let taskText = document.createElement("span");
+        taskText.textContent = display;
+
         storage_ = JSON.parse(localStorage.getItem("todolist")) || []
 
+        let deleteBtn = document.createElement("button")
+        deleteBtn.textContent = "delete"
+        dltbtn(deleteBtn)
+
+        let editBtn = document.createElement("button")
+        editBtn.textContent = "edit"
+        edit(editBtn);
+
+        deleteBtn.addEventListener("click", function () {
+            li.remove()
+        })
+
+        editBtn.addEventListener("click", function () {
+            let newTask = prompt("Edit your task:", taskText.textContent)
+
+            if (newTask !== null && newTask !== "") {
+                taskText.textContent = " " + newTask + " "
+            }
+        })
+        if (storage_.includes(display)) {
+            alert("Task already exists!");
+            return;
+        }
         storage_.push(display)
-        storage_ = localStorage.setItem("todolist", JSON.stringify(storage_))
+        localStorage.setItem("todolist", JSON.stringify(storage_))
         let li = document.createElement("li")
 
-        li.innerHTML =display;
+        li.appendChild(taskText)
+        li.appendChild(deleteBtn)
+        li.appendChild(editBtn)
         styleTask(li);
         ul.appendChild(li)
+        task.value = ""
 
     }
 }
