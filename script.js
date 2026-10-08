@@ -73,8 +73,15 @@ function todo_task(event) {
         editBtn.textContent = "edit"
         edit(editBtn);
 
-        deleteBtn.addEventListener("click", function () {
+        deleteBtn.addEventListener('click', () => {
+            storage_ = JSON.parse(localStorage.getItem('todolist')) || []
+            let liIndex = storage_.findIndex(item => item.id === id)
+
             li.remove()
+            //["m","z","4","t","y","5","6"]
+            storage_.splice(liIndex, 1)
+            localStorage.setItem('todolist', JSON.stringify(storage_))
+
         })
 
         editBtn.addEventListener("click", function () {

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let fetch = "abcd"
+        let fetch_array = ["abcd", "1234", "efg"]
+        storage_ = JSON.parse(localStorage.getItem("todolist")) || []
+
+        storage_.forEach(element => {
+            if (display === element) {
+                alert(element);
+            }
+        })
+
+
+    </script>
+</body>
+
+</html>
