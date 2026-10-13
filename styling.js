@@ -33,6 +33,10 @@ input.style.fontSize = "16px";
 
 // fieldss
 let fields = document.querySelector(".fields");
+fields.style.display = "flex";
+fields.style.flexDirection = "column";
+fields.style.alignItems = "center";
+fields.style.justifyContent = "flex-start";
 fields.prepend(h1);
 
 // li styling
@@ -54,6 +58,7 @@ function dltbtn(deleteBtn) {
     deleteBtn.style.backgroundColor = "rgb(118 4 4)"
     deleteBtn.style.color = "white"
     deleteBtn.style.fontSize = "14px"
+    deleteBtn.style.float = "right"
 }
 // edit button styling
 function edit(editBtn) {
@@ -65,4 +70,5 @@ function edit(editBtn) {
     editBtn.style.backgroundColor = "#7ec9ee"
     editBtn.style.color = "white"
     editBtn.style.fontSize = "14px"
+    editBtn.style.float = "right"
 }
