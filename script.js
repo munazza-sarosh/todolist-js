@@ -34,7 +34,7 @@ let task = document.getElementById("text");
 task.addEventListener("keydown", todo_task)
 
 
-function rendertodo() {
+function rendertodo(id,text) {
     ul.innerHTML = "";
     // storage_ = JSON.parse(localStorage.getItem("todolist")) || []
     storage_.forEach(store => {
@@ -56,7 +56,6 @@ function rendertodo() {
         // span
         let taskText = document.createElement("span");
         taskText.textContent = store.text;
-
 
         // delete button
 
@@ -93,7 +92,6 @@ function rendertodo() {
             }
         })
 
-
         li.appendChild(taskText)
         li.appendChild(deleteBtn)
         li.appendChild(editBtn)
@@ -103,23 +101,37 @@ function rendertodo() {
 
     })
 }
-// function todo task
 
+// function todo task
 function todo_task(event) {
     if (event.key === "Enter" && task.value.trim() != "") {
+        let textvalue = task.value;
         const objarray = {
             id: Date.now(),
             text: task.value.trim(),
             status: false
         }
-        if (storage_.some(store => store.text.toLowerCase() === task.value.trim().toLowerCase())) {
-            alert("Task already exists!");
+        storage_ = JSON.parse(localStorage.getItem("todolist")) || [];
+
+        let alreadyExist = false;
+
+        for (let element of storage_) {
+            if (element.text.toLowerCase() === textvalue.trim().toLowerCase()) {
+                alert("This task already exists!");
+                alreadyExist = true;
+                break;
+            }
+        }
+
+        if (alreadyExist) {
             return;
         }
-        storage_.push(objarray)
-        localStorage.setItem("todolist", JSON.stringify(storage_)) || []
-        task.value = ""
+
+        storage_.push(objarray);
+        localStorage.setItem("todolist", JSON.stringify(storage_));
+        textvalue = "";
         rendertodo();
+
     }
 }
 rendertodo();
